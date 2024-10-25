@@ -9,3 +9,40 @@ export const fetchPopularMovies = async () => {
   }
   return response.json();
 };
+
+// Function to search for movies
+export const searchMovies = async (query: string) => {
+    const response = await fetch(`${API_BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch movies');
+    }
+    return response.json();
+  };
+  
+  // Function to fetch movie details
+  export const fetchMovieDetails = async (movieId: number) => {
+    const response = await fetch(`${API_BASE_URL}/movie/${movieId}?api_key=${API_KEY}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch movie details');
+    }
+    return response.json();
+  };
+  
+  // Function to fetch movie credits (cast)
+  export const fetchMovieCredits = async (movieId: number) => {
+    const response = await fetch(`${API_BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch movie credits');
+    }
+    return response.json();
+  };
+  
+  // Function to fetch movie recommendations
+  export const fetchMovieRecommendations = async (movieId: number) => {
+    const response = await fetch(`${API_BASE_URL}/movie/${movieId}/recommendations?api_key=${API_KEY}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch movie recommendations');
+    }
+    return response.json();
+  };
+  
