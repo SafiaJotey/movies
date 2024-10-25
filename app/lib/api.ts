@@ -6,34 +6,36 @@ const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 // Function to fetch popular movies
 export const fetchMovies = async ({
-    pageParam = 1,
-  }: {
-    pageParam: number;
-  }): Promise<MoviesResponse> => {
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/popular`,
+  pageParam = 1,
+}: {
+  pageParam: number;
+}): Promise<MoviesResponse> => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/movie/popular`,
     {
       params: {
         api_key: process.env.NEXT_PUBLIC_API_KEY,
         page: pageParam,
       },
     }
-    );
-    console.log(response)
-    return response.data;
-  };
-// Function to search for movies
-export const searchMovies = async (query: string) => {
-  const response = await fetch(
-    `${API_BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
-      query
-    )}`
   );
-  if (!response.ok) {
-    throw new Error('Failed to fetch movies');
-  }
-  return response.json();
+
+  return response.data;
 };
+export const fetchSearchResults = async (
+  query: string,
+  pageParam: number = 1
+): Promise<MoviesResponse> => {
+  const response = await axios.get(`${API_BASE_URL}/search/movie`, {
+    params: {
+      api_key: API_KEY,
+      query: query,
+      page: pageParam,
+    },
+  });
+  return response.data;
+};
+// Function to search for movies
 
 // Function to fetch movie details
 export const fetchMovieDetails = async (movieId: number) => {
