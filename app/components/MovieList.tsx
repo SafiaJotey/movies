@@ -1,17 +1,17 @@
 'use client';
 
-import { useGetAllMovies } from '../hooks/useGetAllMovies';
-import { Movie } from '../tyrpe/movieType';
+import { Movie, MovieListProps } from '../tyrpe/movieType';
 import MovieCard from './MovieCard';
 
-export default function MovieList() {
-  const { data, error } = useGetAllMovies(['popularMovies']);
-
+export default function MovieList({ movies }:{movies:MovieListProps}) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-      {data?.results?.map((movie: Movie) => (
-        <MovieCard key={movie.id} movie={movie} />
-      ))}
-    </div>
+    <>
+      {' '}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {movies?.map((movie: Movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+      </div>
+    </>
   );
 }

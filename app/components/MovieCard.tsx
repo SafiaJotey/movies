@@ -15,10 +15,10 @@ const MovieCard = ({ movie }: { movie: Movie }) => {
             src={`${process.env.NEXT_PUBLIC_IMAGE}${movie.poster_path}`}
             alt={movie.title}
             fill
-            style={{ objectFit: 'cover' }} // Using inline style for objectFit
-            placeholder="blur"
-            blurDataURL="/placeholder.jpg" // Optional blur placeholder
+            style={{ objectFit: 'cover' }}
             className="rounded-t-lg"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority
           />
         </div>
         <div className="p-4">

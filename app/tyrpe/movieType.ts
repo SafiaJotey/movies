@@ -8,3 +8,9 @@ export interface Movie {
   export interface MovieListProps {
     movies: Movie[];
   }
+
+export interface MoviesResponse {
+  page: number;
+  results: Movie[];
+  total_pages: number;
+}
