@@ -1,4 +1,4 @@
-// Server Component: No "use client" needed here
+
 import AutoSlider from "@/app/components/AutoSlider";
 import {
   fetchMovieCredits,

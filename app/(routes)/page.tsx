@@ -5,18 +5,8 @@ import MovieList from '../components/MovieList';
 import { useGetAllMovies } from '../hooks/useGetAllMovies';
 import { useSearchMovies } from '../hooks/useGetSearchedMovies';
 import { Banner } from '../components/Banner';
+import { useDebounce } from '../lib/utils/useDebounce';
 
-// Debounce utility to reduce API calls
-const useDebounce = (value: string, delay: number) => {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    const handler = setTimeout(() => setDebouncedValue(value), delay);
-    return () => clearTimeout(handler);
-  }, [value, delay]);
-
-  return debouncedValue;
-};
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -24,8 +14,8 @@ export default function HomePage() {
   const inputRef = useRef<HTMLInputElement>(null); // Ref to manage input field focus
 
   const debouncedQuery = useDebounce(searchQuery, 500);
+//Fetch all movies
 
-  // Fetch popular movies
   const {
     data: movieData,
     error: movieError,
@@ -46,14 +36,14 @@ export default function HomePage() {
     refetch: refetchSearch,
   } = useSearchMovies(debouncedQuery);
 
-  // Keep track of focus state to manage re-renders properly
+
   const keepFocus = useCallback(() => {
     if (inputRef.current) {
-      inputRef.current.focus(); // Ensure input stays focused
+      inputRef.current.focus(); 
     }
   }, []);
 
-  // Trigger search only when user stops typing
+
   useEffect(() => {
     if (debouncedQuery.trim()) {
       setIsSearching(true);
@@ -63,7 +53,7 @@ export default function HomePage() {
     }
   }, [debouncedQuery, refetchSearch]);
 
-  // Handle outside clicks to blur the input
+
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
@@ -74,7 +64,6 @@ export default function HomePage() {
     return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, []);
 
-  // Refocus the input whenever search query or results change
   useEffect(() => {
     keepFocus();
   }, [searchQuery, searchData, keepFocus]);

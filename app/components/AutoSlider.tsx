@@ -1,4 +1,4 @@
-"use client"; // Only this component is marked as client-side
+"use client"; 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Recommendation } from "../type/RecommendationType";
@@ -12,9 +12,9 @@ const AutoSlider = ({ recommendations }: { recommendations: Recommendation[] }) 
       setCurrentIndex((prevIndex) =>
         prevIndex === recommendations.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000); // Change slide every 3 seconds
+    }, 3000); 
 
-    return () => clearInterval(interval); // Cleanup interval on component unmount
+    return () => clearInterval(interval);
   }, [recommendations.length]);
 
   useEffect(() => {
