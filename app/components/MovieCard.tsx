@@ -1,21 +1,21 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Movie } from '../tyrpe/movieType';
+import Image from "next/image";
+import Link from "next/link";
+import { Movie } from "../tyrpe/movieType";
 
 const MovieCard = ({ movie }: { movie: Movie }) => {
   console.log(movie);
   return (
-    <Link href={`/movies/${movie.id}`} className="block">
+    <Link href={`/${movie.id}`} className="block">
       <div
         key={movie.id}
-        className="bg-white rounded-lg shadow-md overflow-hidden hover:scale-105 transition-transform"
+        className="bg-white rounded-lg shadow-md overflow-hidden hover:scale-105 transition-transform h-[400px]"
       >
         <div className="relative w-full h-72">
           <Image
             src={`${process.env.NEXT_PUBLIC_IMAGE}${movie.poster_path}`}
             alt={movie.title}
             fill
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: "cover" }}
             className="rounded-t-lg"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority

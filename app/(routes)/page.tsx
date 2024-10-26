@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import MovieList from '../components/MovieList';
 import { useGetAllMovies } from '../hooks/useGetAllMovies';
 import { useSearchMovies } from '../hooks/useGetSearchedMovies';
+import { Banner } from '../components/Banner';
 
 // Debounce utility to reduce API calls
 const useDebounce = (value: string, delay: number) => {
@@ -90,19 +91,20 @@ export default function HomePage() {
 
   return (
     <main className="p-8">
+       <Banner />
       <h1 className="text-2xl font-bold mb-4">Movies</h1>
 
-      {/* Search Input */}
-      <div className="mb-6">
-        <input
-          type="text"
-          ref={inputRef} // Attach ref to input field
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search movies..."
-          className="border px-4 py-2 rounded focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
+     {/* Search Input */}
+     <div className="mb-6">
+          <input
+            type="text"
+            ref={inputRef}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search movies..."
+            className="border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 px-4 py-2 w-full"
+          />
+        </div>
 
       {/* Movie List */}
       {currentData?.pages.map((page, index) => (
@@ -122,3 +124,5 @@ export default function HomePage() {
     </main>
   );
 }
+
+

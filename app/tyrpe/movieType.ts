@@ -6,6 +6,7 @@ export interface Movie {
     release_date: string;
   }
   export interface MovieListProps {
+    [x: string]: any;
     movies: Movie[];
   }
 
