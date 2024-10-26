@@ -1,7 +1,7 @@
 
 import AutoSlider from "@/app/components/AutoSlider";
-// import WatchlistButton from "@/app/components/WatchButton";
-// import WatchButton from "@/app/components/WatchButton";
+import WatchButton from "@/app/components/WatchButton";
+
 import {
   fetchMovieCredits,
   fetchMovieDetails,
@@ -40,7 +40,9 @@ const MovieDetailsPage = async ({ params }: MoviePageProps) => {
             <h1 className="text-5xl font-extrabold leading-tight">
               {movie.title}
             </h1>
-            {/* <WatchlistButton movieId={movie.id} movieTitle={movie.title} /> */}
+            <div className="my-4">
+          <WatchButton movie={movie} />
+        </div>
             <p className="text-lg leading-relaxed">{movie.overview}</p>
             <div className="space-y-2">
               <p className="text-sm">

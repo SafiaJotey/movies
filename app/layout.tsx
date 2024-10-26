@@ -1,6 +1,7 @@
 
 import '@/app/globals.css';
 import Providers from '@/providers';
+import MenuBar from './components/Menubar';
 
 export const metadata = {
   title: 'Movies App',
@@ -15,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+      <MenuBar />
         <Providers>{children}</Providers>
       </body>
     </html>

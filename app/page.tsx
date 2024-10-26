@@ -1,12 +1,11 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
-import MovieList from '../components/MovieList';
-import { useGetAllMovies } from '../hooks/useGetAllMovies';
-import { useSearchMovies } from '../hooks/useGetSearchedMovies';
-import { Banner } from '../components/Banner';
-import { useDebounce } from '../lib/utils/useDebounce';
-
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Banner } from './components/Banner';
+import MovieList from './components/MovieList';
+import { useGetAllMovies } from './hooks/useGetAllMovies';
+import { useSearchMovies } from './hooks/useGetSearchedMovies';
+import { useDebounce } from './lib/utils/useDebounce';
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -14,7 +13,7 @@ export default function HomePage() {
   const inputRef = useRef<HTMLInputElement>(null); // Ref to manage input field focus
 
   const debouncedQuery = useDebounce(searchQuery, 500);
-//Fetch all movies
+  //Fetch all movies
 
   const {
     data: movieData,
@@ -36,13 +35,11 @@ export default function HomePage() {
     refetch: refetchSearch,
   } = useSearchMovies(debouncedQuery);
 
-
   const keepFocus = useCallback(() => {
     if (inputRef.current) {
-      inputRef.current.focus(); 
+      inputRef.current.focus();
     }
   }, []);
-
 
   useEffect(() => {
     if (debouncedQuery.trim()) {
@@ -53,10 +50,12 @@ export default function HomePage() {
     }
   }, [debouncedQuery, refetchSearch]);
 
-
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
+      if (
+        inputRef.current &&
+        !inputRef.current.contains(event.target as Node)
+      ) {
         inputRef.current.blur();
       }
     };
@@ -75,25 +74,30 @@ export default function HomePage() {
   const hasNextPage = isSearching ? hasMoreSearch : hasMoreMovies;
   const isFetchingNextPage = isSearching ? isFetchingSearch : isFetchingMovies;
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-[300px]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-gray-600"></div>
+      </div>
+    );
   if (error) return <p>Something went wrong!</p>;
 
   return (
     <main className="p-8">
-       <Banner />
+      <Banner />
       <h1 className="text-2xl font-bold mb-4">Movies</h1>
 
-     {/* Search Input */}
-     <div className="mb-6">
-          <input
-            type="text"
-            ref={inputRef}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search movies..."
-            className="border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 px-4 py-2 w-full"
-          />
-        </div>
+      {/* Search Input */}
+      <div className="mb-6">
+        <input
+          type="text"
+          ref={inputRef}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search movies..."
+          className="border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 px-4 py-2 w-full"
+        />
+      </div>
 
       {/* Movie List */}
       {currentData?.pages.map((page, index) => (
@@ -105,7 +109,7 @@ export default function HomePage() {
         <button
           onClick={() => fetchNextPage()}
           disabled={isFetchingNextPage}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+          className="bg-gray-600 hover:bg-gray-700 text-white py-2 px-6 rounded-full transition duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:bg-gray-500 my-2"
         >
           {isFetchingNextPage ? 'Loading more...' : 'Load More'}
         </button>
@@ -113,5 +117,3 @@ export default function HomePage() {
     </main>
   );
 }
-
-

@@ -1,23 +1,24 @@
+"use server";
 
-// 'use server'
+import { Movie } from "../type/movieType";
 
-// // In-memory store for the watchlist
-// let watchlist = [];
-// export async function getWatchList() {
-//   return watchlist;
-// }
 
-// export async function postWatchList(movie) {
 
-//   if (!watchlist.includes(movie.id)) {
-//     watchlist.push(movie);
-//   }
-//   console.log(watchlist)
-//   return watchlist;
-// }
+let watchlist: Movie[] = [];
 
-// export async function deleteWatchList(movie) {
+export const fetchWatchlist = async (): Promise<Movie[]> => {
+  return watchlist;
+};
 
-//   watchlist = watchlist.filter(id => id !== movie.id);
-//   return watchlist;
-// }
+export const addWatchlist = async (movie: Movie): Promise<Movie[]> => {
+  const findMovie = watchlist.find((item: Movie) => item?.id === movie?.id);
+  if (!findMovie) {
+    watchlist.push(movie);
+  }
+  return watchlist;
+};
+
+export const removeWatchlist = async (id: number): Promise<Movie[]> => {
+  watchlist = watchlist.filter((movie) => movie.id !== id);
+  return watchlist;
+};
