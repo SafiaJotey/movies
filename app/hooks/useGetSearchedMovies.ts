@@ -8,6 +8,6 @@ export const useSearchMovies = (query: string) => {
     queryFn: ({ pageParam = 1 }) => fetchSearchResults(query, pageParam),
     getNextPageParam: (lastPage) =>
       lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,
-    enabled: false, // Only fetch when manually triggered
+    enabled: false, initialPageParam: 1
   });
 };

@@ -1,7 +1,7 @@
-import { Movie, MovieListProps } from "../tyrpe/movieType";
+import { Movie } from "../type/movieType";
 import MovieCard from "./MovieCard";
 
-export default function MovieList({ movies }: { movies: MovieListProps }) {
+export default function MovieList({ movies }: { movies: Movie[] }) {
   return (
     <>
       {" "}

@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Movie } from "../tyrpe/movieType";
+import { Movie } from "../type/movieType";
 
 const MovieCard = ({ movie }: { movie: Movie }) => {
-  console.log(movie);
+
   return (
     <Link href={`/${movie.id}`} className="block">
       <div

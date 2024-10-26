@@ -5,6 +5,8 @@ import {
   fetchMovieDetails,
   fetchRecommendations,
 } from "@/app/lib/api";
+import { Genre, Movie } from "@/app/type/movieType";
+import { Cast } from "@/app/type/RecommendationType";
 import Image from "next/image";
 
 interface MoviePageProps {
@@ -44,7 +46,7 @@ const MovieDetailsPage = async ({ params }: MoviePageProps) => {
               </p>
               <p className="text-sm">
                 <span className="font-medium">Genres:</span>{" "}
-                {movie.genres.map((g: any) => g.name).join(", ")}
+                {movie.genres.map((g: Genre) => g.name).join(", ")}
               </p>
             </div>
           </div>
@@ -54,7 +56,7 @@ const MovieDetailsPage = async ({ params }: MoviePageProps) => {
         <div className="mt-16">
           <h2 className="text-3xl font-semibold mb-6">Top Cast</h2>
           <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8">
-            {credits.cast.slice(0, 10).map((actor: any) => (
+            {credits.cast.slice(0, 10).map((actor: Cast) => (
               <li key={actor.id} className="text-center">
                 <p className="font-semibold text-lg">{actor.name}</p>
                 <p className="text-sm text-gray-500">{actor.character}</p>
@@ -81,7 +83,7 @@ export async function generateStaticParams() {
   );
   const movies = await response.json();
 
-  return movies.results.map((movie: any) => ({
+  return movies.results.map((movie: Movie) => ({
     movieId: movie.id.toString(),
   }));
 }

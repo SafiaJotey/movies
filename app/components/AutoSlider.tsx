@@ -1,8 +1,9 @@
 "use client"; // Only this component is marked as client-side
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { Recommendation } from "../type/RecommendationType";
 
-const AutoSlider = ({ recommendations }: { recommendations: any[] }) => {
+const AutoSlider = ({ recommendations }: { recommendations: Recommendation[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
 
@@ -30,7 +31,7 @@ const AutoSlider = ({ recommendations }: { recommendations: any[] }) => {
         ref={sliderRef}
         className="flex transition-transform duration-700 ease-in-out"
       >
-        {recommendations.map((rec: any) => (
+        {recommendations.map((rec:Recommendation) => (
           <div
             key={rec.id}
             className="min-w-[180px] mx-2 rounded-xl bg-white shadow-md"
